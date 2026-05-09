@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AInova — Inteligencia Artificial para Empresas Líderes</title>
+
+  <!-- SEO / Open Graph -->
+  <meta name="description"
+    content="AInova diseña e implementa arquitecturas de inteligencia artificial a medida para empresas de 50–500 personas. Automatización, agentes IA y marketing digital." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AInova — Arquitectos de Inteligencia Artificial para Empresas" />
+  <meta property="og:description"
+    content="Automatización, agentes IA y marketing digital integrado. Una sola agencia. Soluciones llave en mano." />
+  <meta property="og:image" content="https://placehold.co/1200x630/03060D/F2F2F2?text=AInova" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js (FAQ accordion) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #03060D;
+      color: #F2F2F2;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    img,
+    video,
+    iframe {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ─── Color tokens ─── */
+    :root {
+      --p1: #F2F2F2;
+      --p2: #88898C;
+      --dark: #03060D;
+      --card: #111826;
+      --border: #283040;
+      --muted: #88898C;
+      --accent: #F2F2F2;
+    }
+
+    /* ─── Gradient utilities ─── */
+    .g-text {
+      background: linear-gradient(90deg, #88898C 0%, #F2F2F2 25%, #ffffff 50%, #F2F2F2 75%, #88898C 100%);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer-text 6s linear infinite;
+    }
+
+    .g-btn {
+      background: #F2F2F2;
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s, box-shadow .18s;
+    }
+
+    .g-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #e0e0e0;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .g-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(242, 242, 242, .18);
+    }
+
+    .g-btn:hover::after {
+      opacity: 1;
+    }
+
+    .g-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
+      transform: translateX(-200%);
+      z-index: 3;
+      pointer-events: none;
+      animation: btn-glint 4.5s ease-in-out infinite;
+    }
+
+    .g-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Cards ─── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: rgba(242, 242, 242, .22);
+      box-shadow: 0 0 40px rgba(242, 242, 242, .05);
+      transform: translateY(-3px);
+    }
+
+    /* ─── Nav ─── */
+    .nav-blur {
+      background: rgba(3, 6, 13, .92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hamburger-btn {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    /* ─── Pill ─── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(40, 48, 64, .5);
+      border: 1px solid rgba(242, 242, 242, .12);
+      color: #88898C;
+      border-radius: 999px;
+      padding: .35rem 1.1rem;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Screen mockup ─── */
+    .screen {
+      background: #0d1018;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .screen-bar {
+      background: #111826;
+      border-bottom: 1px solid var(--border);
+      padding: .55rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* ─── Scroll reveal ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-delay-1 {
+      transition-delay: .1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: .2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: .3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: .4s;
+    }
+
+    /* ─── Keyframe animations ─── */
+    @keyframes float-slow {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      33% {
+        transform: translateY(-18px) rotate(2deg);
+      }
+
+      66% {
+        transform: translateY(-9px) rotate(-1.5deg);
+      }
+    }
+
+    @keyframes float-med {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-14px) rotate(3deg);
+      }
+    }
+
+    @keyframes orbit-cw {
+      from {
+        transform: rotate(0deg) translateX(130px) rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg) translateX(130px) rotate(-360deg);
+      }
+    }
+
+    @keyframes orbit-ccw {
+      from {
+        transform: rotate(0deg) translateX(185px) rotate(0deg);
+      }
+
+      to {
+        transform: rotate(-360deg) translateX(185px) rotate(360deg);
+      }
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: .4;
+      }
+
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(242, 242, 242, .12);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(242, 242, 242, .28), 0 0 80px rgba(136, 137, 140, .1);
+      }
+    }
+
+    @keyframes tech-float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .float-a {
+      animation: float-slow 7s ease-in-out infinite;
+    }
+
+    .float-b {
+      animation: float-med 5s ease-in-out infinite;
+    }
+
+    .float-c {
+      animation: float-slow 9s ease-in-out infinite 1s;
+    }
+
+    /* ─── Orbit system ─── */
+    .orbit-icon {
+      position: absolute;
+      background: #111826;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(242, 242, 242, .05);
+    }
+
+    .orb-i1 {
+      animation: orbit-cw 18s linear infinite;
+    }
+
+    .orb-i2 {
+      animation: orbit-cw 18s linear infinite -4.5s;
+    }
+
+    .orb-i3 {
+      animation: orbit-cw 18s linear infinite -9s;
+    }
+
+    .orb-i4 {
+      animation: orbit-cw 18s linear infinite -13.5s;
+    }
+
+    .orb-o1 {
+      animation: orbit-ccw 28s linear infinite;
+    }
+
+    .orb-o2 {
+      animation: orbit-ccw 28s linear infinite -7s;
+    }
+
+    .orb-o3 {
+      animation: orbit-ccw 28s linear infinite -14s;
+    }
+
+    .orb-o4 {
+      animation: orbit-ccw 28s linear infinite -21s;
+    }
+
+    /* ─── CTA glow pulse ─── */
+    .cta-glow {
+      animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    /* ─── Progress bar ─── */
+    .prog {
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #283040 0%, #88898C 30%, #F2F2F2 50%, #88898C 70%, #283040 100%);
+      background-size: 300px 100%;
+      animation: prog-shimmer 2.5s ease-in-out infinite;
+    }
+
+    /* ─── FAQ ─── */
+    [x-cloak] {
+      display: none !important;
+    }
+
+    /* ─── Gradient border card ─── */
+    .g-border-card {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+        linear-gradient(135deg, rgba(242, 242, 242, .25), rgba(136, 137, 140, .15)) border-box;
+      border: 1px solid transparent;
+      border-radius: 1.25rem;
+    }
+
+    /* ─── CTA section ─── */
+    .cta-section {
+      background: linear-gradient(135deg, #03060D 0%, #111826 40%, #0d1424 65%, #03060D 100%);
+    }
+
+    /* ─── Hero canvas ─── */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Tech stack cards ─── */
+    .tech-card {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: .875rem;
+      transition: border-color .25s, background .25s, transform .25s;
+      cursor: default;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(242, 242, 242, .12);
+      background: rgba(242, 242, 242, .03);
+      transform: translateY(-5px);
+    }
+
+    .tech-card:hover .tech-icon-wrap {
+      box-shadow: 0 0 18px rgba(242, 242, 242, .1);
+    }
+
+    .tech-icon-wrap {
+      transition: box-shadow .25s;
+    }
+
+    /* ─── NEW ANIMATION SYSTEM ─── */
+
+    @keyframes shimmer-text {
+      0%   { background-position: 100% center; }
+      100% { background-position: -100% center; }
+    }
+
+    @keyframes btn-glint {
+      0%, 38% { transform: translateX(-200%); }
+      42%      { transform: translateX(-200%); opacity: 1; }
+      58%      { transform: translateX(400%);  opacity: 1; }
+      62%, 100%{ transform: translateX(400%); }
+    }
+
+    @keyframes prog-shimmer {
+      0%   { background-position: -300px 0; }
+      100% { background-position: 300px 0; }
+    }
+
+    @keyframes ripple-out {
+      0%   { transform: translate(-50%,-50%) scale(0.85); opacity: 0.6; }
+      100% { transform: translate(-50%,-50%) scale(3.2);  opacity: 0;   }
+    }
+
+    @keyframes scan-sweep {
+      0%   { top: -2px;  opacity: 0;   }
+      4%   { opacity: 0.8; }
+      96%  { opacity: 0.5; }
+      100% { top: 100%;  opacity: 0;   }
+    }
+
+    @keyframes stagger-card {
+      from { opacity: 0; transform: translateY(32px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0)    scale(1);    }
+    }
+
+    @keyframes num-pop {
+      0%   { transform: scale(1); }
+      45%  { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes hero-glow {
+      0%,100% { filter: drop-shadow(0 0 0px rgba(242,242,242,0)); }
+      50%      { filter: drop-shadow(0 0 18px rgba(242,242,242,.18)); }
+    }
+
+    @keyframes float-particle {
+      0%,100% { transform: translateY(0) translateX(0); opacity: .5; }
+      33%     { transform: translateY(-12px) translateX(6px); opacity: 1; }
+      66%     { transform: translateY(-6px) translateX(-4px); opacity: .7; }
+    }
+
+    @keyframes pill-shine {
+      0%   { box-shadow: 0 0 0 0 rgba(242,242,242,0); }
+      50%  { box-shadow: 0 0 18px 2px rgba(242,242,242,.08); }
+      100% { box-shadow: 0 0 0 0 rgba(242,242,242,0); }
+    }
+
+    @keyframes border-flow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes step-beam {
+      0%   { background-position: -100% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes fade-slide-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Ripple rings (orbit center) ─── */
+    .ripple-ring {
+      position: absolute;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 1px solid rgba(242, 242, 242, 0.35);
+      top: 50%;
+      left: 50%;
+      animation: ripple-out 3.6s ease-out infinite;
+      pointer-events: none;
+    }
+    .ripple-ring:nth-child(2) { animation-delay: 1.2s; }
+    .ripple-ring:nth-child(3) { animation-delay: 2.4s; }
+
+    /* ─── CTA scan line ─── */
+    .scan-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(242,242,242,.3) 40%, rgba(255,255,255,.6) 50%, rgba(242,242,242,.3) 60%, transparent 100%);
+      animation: scan-sweep 6s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ─── Animated gradient border card ─── */
+    .card-animated-border {
+      position: relative;
+    }
+    .card-animated-border::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: calc(1.25rem + 1px);
+      background: linear-gradient(270deg, rgba(242,242,242,.35), rgba(136,137,140,.2), rgba(242,242,242,.05), rgba(136,137,140,.2), rgba(242,242,242,.35));
+      background-size: 400% 400%;
+      opacity: 0;
+      transition: opacity .5s;
+      animation: border-flow 4s ease infinite;
+      z-index: 0;
+    }
+    .card-animated-border:hover::before { opacity: 1; }
+    .card-animated-border > * { position: relative; z-index: 1; }
+
+    /* ─── Pill glow ─── */
+    .pill {
+      animation: pill-shine 4s ease-in-out infinite;
+    }
+
+    /* ─── Stagger items controlled by JS ─── */
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(32px) scale(0.95);
+    }
+    .stagger-item.anim-in {
+      animation: stagger-card 0.7s cubic-bezier(0.2, 0, 0.2, 1) both;
+      animation-delay: calc(var(--i, 0) * 140ms);
+    }
+
+    /* ─── Step connector beam ─── */
+    .step-beam {
+      background: linear-gradient(90deg, rgba(242,242,242,.1) 0%, rgba(255,255,255,.5) 50%, rgba(242,242,242,.1) 100%);
+      background-size: 200% 100%;
+      animation: step-beam 3s ease-in-out infinite;
+    }
+
+    /* ─── Hero heading glow ─── */
+    .hero-glow-wrap {
+      animation: hero-glow 4s ease-in-out infinite;
+    }
+
+    /* ─── Marquee carousel ─── */
+    @keyframes marquee-scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee-scroll 36s linear infinite;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    .brand-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(40, 48, 64, .5);
+      background: rgba(17, 24, 38, .6);
+      backdrop-filter: blur(8px);
+      flex-shrink: 0;
+      width: 100px;
+      height: 100px;
+      cursor: default;
+      transition: border-color .25s, background .25s, transform .25s;
+    }
+
+    .brand-card:hover {
+      border-color: rgba(242, 242, 242, .15);
+      background: rgba(17, 24, 38, .9);
+      transform: translateY(-4px);
+    }
+
+    .brand-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform .25s;
+    }
+
+    .brand-card:hover .brand-icon {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+
+<body x-data>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav class="nav-blur sticky top-0 z-50" x-data="{ mobileOpen: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+      <a href="#" class="flex items-center no-underline flex-shrink-0">
+        <img src="img/ainova-logo.svg" alt="AInova" style="height:34px;width:auto;">
+      </a>
+
+      <div class="hidden md:flex items-center gap-6 lg:gap-8 text-sm" style="color:#88898C;">
+        <a href="#servicios" class="hover:text-white transition">Servicios</a>
+        <a href="#metodologia" class="hover:text-white transition">Metodología</a>
+        <a href="#como-funciona" class="hover:text-white transition">Proceso</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="https://wa.me/584244129964" target="_blank" rel="noopener"
+          class="g-btn hidden sm:inline-flex px-4 md:px-5 py-3 rounded-xl text-sm font-semibold" style="color:#03060D;">
+          <span style="position:relative;z-index:1;">Agendar llamada</span>
+        </a>
+        <!-- Hamburger button (mobile only) -->
+        <button @click="mobileOpen = !mobileOpen"
+          class="hamburger-btn md:hidden flex items-center justify-center rounded-xl transition"
+          style="border:1px solid #283040;background:rgba(17,24,38,.6);" aria-label="Abrir menú">
+          <svg x-show="!mobileOpen" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <svg x-show="mobileOpen" x-cloak width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile dropdown menu -->
+    <div x-show="mobileOpen" x-collapse x-cloak class="md:hidden border-t px-4 py-3"
+      style="border-color:#283040;background:rgba(3,6,13,.98);">
+      <div class="space-y-1">
+        <a href="#servicios" @click="mobileOpen=false"
+          class="mobile-link px-3 text-sm font-medium hover:text-white transition" style="color:#88898C;">Servicios</a>
+        <a href="#metodologia" @click="mobileOpen=false"
+          class="mobile-link px-3 text-sm font-medium hover:text-white transition"
+          style="color:#88898C;">Metodología</a>
+        <a href="#como-funciona" @click="mobileOpen=false"
+          class="mobile-link px-3 text-sm font-medium hover:text-white transition" style="color:#88898C;">Proceso</a>
+        <a href="#faq" @click="mobileOpen=false"
+          class="mobile-link px-3 text-sm font-medium hover:text-white transition" style="color:#88898C;">FAQ</a>
+      </div>
+      <a href="https://wa.me/584244129964" target="_blank" rel="noopener"
+        class="g-btn mt-3 w-full py-3 rounded-xl text-sm font-semibold flex items-center justify-center"
+        style="color:#03060D;">
+        <span style="position:relative;z-index:1;">Agendar llamada</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="relative overflow-hidden pt-20 pb-24 md:pt-28 md:pb-32 px-4 sm:px-6" id="hero">
+    <!-- Particle canvas -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Background orbs -->
+    <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
+      <div class="float-a absolute"
+        style="top:8%;left:5%;width:min(320px,60vw);height:min(320px,60vw);border-radius:50%;background:radial-gradient(circle,rgba(242,242,242,.04),transparent 65%);">
+      </div>
+      <div class="float-b absolute"
+        style="top:20%;right:4%;width:min(280px,50vw);height:min(280px,50vw);border-radius:50%;background:radial-gradient(circle,rgba(136,137,140,.04),transparent 65%);">
+      </div>
+      <div class="float-c absolute"
+        style="bottom:10%;left:30%;width:min(250px,45vw);height:min(250px,45vw);border-radius:50%;background:radial-gradient(circle,rgba(242,242,242,.03),transparent 65%);">
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+
+      <div class="pill mx-auto mb-8" style="animation:fadeInUp .6s both;">
+        <span class="w-2 h-2 rounded-full animate-pulse" style="background:#88898C;"></span>
+        Automatización · Agentes IA · Marketing Digital
+      </div>
+
+      <h1
+        class="text-3xl sm:text-4xl md:text-[4.5rem] font-extrabold leading-[1.1] md:leading-[1.08] tracking-tight mb-6 md:mb-7"
+        style="animation:fadeInUp .7s .1s both;color:#F2F2F2;">
+        Su empresa ya tiene los activos.<br />
+        <span class="g-text">AInova arquitecta la inteligencia</span><br />
+        que los hace rendir al máximo.
+      </h1>
+
+      <p class="text-base md:text-xl max-w-2xl mx-auto mb-8 md:mb-11 leading-relaxed"
+        style="animation:fadeInUp .7s .2s both;color:#88898C;">
+        Somos Arquitectos y Orquestadores de Tecnología. Diseñamos sistemas de inteligencia artificial a medida que se
+        adaptan al flujo específico de cada organización, transformando procesos complejos en soluciones fluidas y
+        resultados tangibles.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-5" style="animation:fadeInUp .7s .3s both;">
+        <a href="https://wa.me/584244129964" target="_blank" rel="noopener"
+          class="g-btn px-6 sm:px-9 py-4 rounded-xl font-bold text-base inline-flex items-center gap-3 cta-glow"
+          style="color:#03060D;">
+          <span class="relative z-10 flex items-center gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03060D">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.106 1.516 5.836L.057 23.32a.75.75 0 00.922.922l5.484-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-5.035-1.397l-.36-.215-3.732.993.993-3.732-.215-.36A9.73 9.73 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
+            </svg>
+            Hablar con el CEO
+          </span>
+        </a>
+        <a href="#como-funciona" class="px-6 sm:px-9 py-4 rounded-xl font-semibold text-base transition"
+          style="color:#88898C;border:1px solid #283040;background:rgba(255,255,255,.02);"
+          onmouseover="this.style.borderColor='rgba(242,242,242,.3)';this.style.color='#F2F2F2';"
+          onmouseout="this.style.borderColor='#283040';this.style.color='#88898C';">
+          Ver el proceso →
+        </a>
+      </div>
+      <p class="text-sm font-bold" style="animation:fadeInUp .7s .4s both;color:#88898C;">Sin compromiso · Respuesta
+        garantizada en menos de 2 horas</p>
+
+    </div>
+  </section>
+
+  <!-- ══════════ TECH STACK ══════════ -->
+  <div class="relative py-10 md:py-14 overflow-hidden"
+    style="background:linear-gradient(to bottom,transparent 0%,rgba(17,24,38,.55) 18%,rgba(17,24,38,.55) 82%,transparent 100%);">
+
+    <p class="text-center text-xs sm:text-sm font-bold uppercase tracking-widest mb-8 md:mb-10 relative z-10"
+      style="color:#88898C;letter-spacing:.12em;">Stack tecnológico que dominamos</p>
+
+    <!-- Horizontal fade mask + carousel -->
+    <div class="overflow-hidden"
+      style="-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);">
+      <div class="marquee-track">
+
+        <!-- ── Set A ── -->
+
+        <!-- n8n -->
+        <div class="brand-card">
+          <img src="img/n8n.svg" alt="n8n" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Airtable -->
+        <div class="brand-card">
+          <img src="img/Airtable.svg" alt="Airtable" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Supabase -->
+        <div class="brand-card">
+          <img src="img/Supabase.svg" alt="Supabase" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="brand-card">
+          <img src="img/Whatsapp.svg" alt="WhatsApp" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Meta -->
+        <div class="brand-card">
+          <img src="img/meta.svg" alt="Meta Ads" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Google Ads -->
+        <div class="brand-card">
+          <img src="img/Google-ads.svg" alt="Google Ads"
+            style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- OpenAI -->
+        <div class="brand-card">
+          <img src="img/OpenAI.svg" alt="OpenAI" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Gemini -->
+        <div class="brand-card">
+          <img src="img/Gemini.svg" alt="Gemini" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Make -->
+        <div class="brand-card">
+          <img src="img/Make.svg" alt="Make" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- Claude -->
+        <div class="brand-card">
+          <img src="img/Claude.svg" alt="Claude" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <!-- ── Set B (duplicate for seamless loop) ── -->
+
+        <div class="brand-card">
+          <img src="img/n8n.svg" alt="n8n" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/Airtable.svg" alt="Airtable" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/Supabase.svg" alt="Supabase" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+
+        <div class="brand-card">
+          <img src="img/meta.svg" alt="Meta Ads" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/Google-ads.svg" alt="Google Ads"
+            style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/OpenAI.svg" alt="OpenAI" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/Gemini.svg" alt="Gemini" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/Make.svg" alt="Make" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+        <div class="brand-card">
+          <img src="img/Claude.svg" alt="Claude" style="width:52px;height:52px;object-fit:contain;display:block;">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ DOLOR ══════════ -->
+  <section class="py-16 md:py-28 px-4 sm:px-6"
+    style="background:radial-gradient(ellipse 60% 70% at -5% 50%,rgba(242,242,242,.02),transparent);">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10 md:mb-16 reveal">
+        <div class="pill mx-auto mb-5">El diagnóstico</div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color:#F2F2F2;">Esto es lo que frena a todas
+          las Empresas</h2>
+        <p class="max-w-xl mx-auto text-sm leading-relaxed" style="color:#88898C;">Estos tres cuellos de botella
+          representan el 80% del potencial no capturado en empresas de 50 a 500 colaboradores.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+
+        <div class="card card-animated-border p-6 md:p-8 stagger-item" style="--i:0;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 md:mb-6"
+            style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="#ef4444" stroke-width="1.8" />
+              <path d="M12 7v5l3.5 3.5" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-3" style="color:#F2F2F2;">De operarios manuales a arquitectos de
+            estrategia</h3>
+          <p class="text-sm leading-relaxed" style="color:#88898C;">Deja de pagar inteligencia colectiva para tareas de
+            llenado de reportes. La IA asume la ejecución repetitiva, devolviendo a tu equipo de alto valor las horas
+            críticas necesarias para escalar el negocio.</p>
+        </div>
+
+        <div class="card card-animated-border p-6 md:p-8 stagger-item" style="--i:1;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 md:mb-6"
+            style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M2 20h20M6 20V10l6-6 6 6v10" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M10 20v-5h4v5" stroke="#ef4444" stroke-width="1.8" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-3" style="color:#F2F2F2;">Decisiones con visión de futuro, no con
+            retrovisor</h3>
+          <p class="text-sm leading-relaxed" style="color:#88898C;">Elimina los informes tardíos. Implementamos sistemas
+            de inteligencia en tiempo real para que tus decisiones de alto impacto se basen en datos de hoy, no en
+            registros del mes pasado.</p>
+        </div>
+
+        <div class="card card-animated-border p-6 md:p-8 sm:col-span-2 md:col-span-1 stagger-item" style="--i:2;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 md:mb-6"
+            style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-3" style="color:#F2F2F2;">Cierra la brecha tecnológica en
+            semanas, no años</h3>
+          <p class="text-sm leading-relaxed" style="color:#88898C;">No es necesario invertir millones ni años en un
+            equipo interno. Te entregamos la infraestructura de automatización avanzada que ya utiliza tu competencia,
+            antes de que la ventana de oportunidad se cierre definitivamente.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROPUESTA DE VALOR ══════════ -->
+  <section class="py-16 md:py-28 px-4 sm:px-6 border-t"
+    style="border-color:#283040;background:radial-gradient(ellipse 55% 70% at 105% 50%,rgba(136,137,140,.03),transparent);"
+    id="servicios">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 md:mb-16 reveal">
+        <div class="pill mx-auto mb-5">Suite completa</div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color:#F2F2F2;">Una agencia. Todo el
+          ecosistema tecnológico que necesita su empresa.</h2>
+        <p class="max-w-xl mx-auto text-sm leading-relaxed" style="color:#88898C;">Diseñamos, implementamos y
+          gestionamos cada componente de su infraestructura de inteligencia artificial y marketing digital.</p>
+      </div>
+
+      <!-- Orbit diagram + texto -->
+      <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 mb-10 md:mb-16">
+
+        <!-- Orbit animation (hidden on mobile to avoid overflow) -->
+        <div class="hidden lg:flex flex-shrink-0 items-center justify-center"
+          style="width:420px;height:420px;position:relative;">
+          <!-- Rings -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+            <div
+              style="position:absolute;width:260px;height:260px;border-radius:50%;border:1px dashed rgba(242,242,242,.1);animation:spin-slow 40s linear infinite;">
+            </div>
+            <div
+              style="position:absolute;width:370px;height:370px;border-radius:50%;border:1px dashed rgba(136,137,140,.07);animation:spin-slow 60s linear infinite reverse;">
+            </div>
+          </div>
+
+          <!-- Center logo -->
+          <div
+            style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;display:flex;align-items:center;justify-content:center;">
+            <!-- Ripple rings -->
+            <div class="ripple-ring"></div>
+            <div class="ripple-ring"></div>
+            <div class="ripple-ring"></div>
+            <img src="img/ainova-logo.svg" alt="AInova"
+              style="width:90px;height:90px;object-fit:contain;display:block;position:relative;z-index:1;">
+          </div>
+
+          <!-- Inner orbit icons -->
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-i1 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-i2 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#88898C" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-i3 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="3" stroke="#F2F2F2" stroke-width="1.8" />
+                <path d="M9 12l2 2 4-4" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-i4 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#88898C" stroke-width="1.8" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Outer orbit icons -->
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-o1 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#F2F2F2" stroke-width="1.8" />
+                <circle cx="9" cy="7" r="4" stroke="#F2F2F2" stroke-width="1.8" />
+              </svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-o2 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="3" width="20" height="14" rx="2" stroke="#88898C" stroke-width="1.8" />
+                <path d="M8 21h8M12 17v4" stroke="#88898C" stroke-width="1.8" />
+              </svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-o3 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="8" stroke="#F2F2F2" stroke-width="1.8" />
+                <path d="m21 21-4.35-4.35" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:50%;left:50%;transform-origin:0 0;">
+            <div class="orb-o4 orbit-icon" style="position:absolute;top:-22px;left:-22px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" stroke="#88898C" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service list -->
+        <div class="flex-1 space-y-4 md:space-y-5 reveal">
+          <div class="card p-5 md:p-6 flex gap-4 md:gap-5 items-start">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background:rgba(242,242,242,.06);border:1px solid rgba(242,242,242,.12);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm mb-1" style="color:#F2F2F2;">Agentes IA operativos 24/7</h3>
+              <p class="text-sm leading-relaxed" style="color:#88898C;">Agentes conversacionales y autónomos que
+                califican leads, atienden clientes y escalan soporte sin intervención humana. Su organización opera sin
+                parar.</p>
+            </div>
+          </div>
+          <div class="card p-5 md:p-6 flex gap-4 md:gap-5 items-start">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background:rgba(136,137,140,.08);border:1px solid rgba(136,137,140,.15);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#88898C" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm mb-1" style="color:#F2F2F2;">Automatización de procesos críticos</h3>
+              <p class="text-sm leading-relaxed" style="color:#88898C;">Eliminamos las tareas manuales de mayor
+                fricción: reportes ejecutivos, onboarding, facturación, seguimientos. Flujos que tardaban días ahora
+                ocurren en minutos.</p>
+            </div>
+          </div>
+          <div class="card p-5 md:p-6 flex gap-4 md:gap-5 items-start">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background:rgba(242,242,242,.06);border:1px solid rgba(242,242,242,.12);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M21 21l-4.35-4.35M11 19A8 8 0 1011 3a8 8 0 000 16z" stroke="#F2F2F2" stroke-width="1.8"
+                  stroke-linecap="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm mb-1" style="color:#F2F2F2;">Marketing digital con inteligencia integrada
+              </h3>
+              <p class="text-sm leading-relaxed" style="color:#88898C;">Campañas en Meta Ads y Google Ads optimizadas
+                con IA, SEO estratégico y analítica avanzada. Presupuesto publicitario convertido en resultados
+                cuantificables.</p>
+            </div>
+          </div>
+          <div class="card p-5 md:p-6 flex gap-4 md:gap-5 items-start">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background:rgba(136,137,140,.08);border:1px solid rgba(136,137,140,.15);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#88898C" stroke-width="1.8"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm mb-1" style="color:#F2F2F2;">Gestión integral llave en mano</h3>
+              <p class="text-sm leading-relaxed" style="color:#88898C;">Gestionamos el ciclo completo: diagnóstico,
+                arquitectura, despliegue y mejora continua. Sin dependencia de recursos técnicos internos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CÓMO FUNCIONA ══════════ -->
+  <section class="py-16 md:py-28 px-4 sm:px-6 border-t" style="border-color:#283040;" id="como-funciona">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10 md:mb-16 reveal">
+        <div class="pill mx-auto mb-5">Proceso</div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color:#F2F2F2;">IA de alto rendimiento:
+          Duplica tus resultados en 3 fases sin esperar el ciclo de 3 años de un equipo interno.</h2>
+        <p class="max-w-lg mx-auto text-sm leading-relaxed" style="color:#88898C;">Un proceso diseñado para
+          organizaciones que no pueden darse el lujo de esperar. Impacto real desde el primer mes de operación.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6 relative">
+        <div class="hidden md:block absolute top-10 left-[calc(33.33%+18px)] right-[calc(33.33%+18px)] h-px step-beam"></div>
+
+        <div class="card card-animated-border p-6 md:p-8 text-center stagger-item" style="--i:0;">
+          <div
+            class="g-btn w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 md:mb-6">
+            <span class="text-xl md:text-2xl font-black relative z-10" style="color:#03060D;">1</span>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-3" style="color:#F2F2F2;">Diagnóstico estratégico</h3>
+          <p class="text-sm leading-relaxed" style="color:#88898C;">En 5 días mapeamos sus procesos, identificamos las
+            oportunidades con mayor impacto y presentamos una hoja de ruta ejecutiva clara y accionable.</p>
+        </div>
+
+        <div class="card card-animated-border p-6 md:p-8 text-center stagger-item" style="--i:1;">
+          <div
+            class="g-btn w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 md:mb-6">
+            <span class="text-xl md:text-2xl font-black relative z-10" style="color:#03060D;">2</span>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-3" style="color:#F2F2F2;">Implementación a medida</h3>
+          <p class="text-sm leading-relaxed" style="color:#88898C;">Construimos agentes, flujos y sistemas adaptados a
+            su operación específica. Sin plantillas genéricas. Compatible con su stack tecnológico actual desde el día
+            uno.</p>
+        </div>
+
+        <div class="card card-animated-border p-6 md:p-8 sm:col-span-2 md:col-span-1 text-center stagger-item" style="--i:2;">
+          <div
+            class="g-btn w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 md:mb-6">
+            <span class="text-xl md:text-2xl font-black relative z-10" style="color:#03060D;">3</span>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-3" style="color:#F2F2F2;">Resultados y escala continua</h3>
+          <p class="text-sm leading-relaxed" style="color:#88898C;">Medimos KPIs concretos desde el primer mes. Nuestro
+            equipo monitorea, optimiza y expande la inteligencia junto a su organización.</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-14 reveal">
+        <a href="https://wa.me/584244129964" target="_blank" rel="noopener"
+          class="g-btn px-6 sm:px-9 py-4 rounded-xl font-bold text-base inline-flex items-center gap-3"
+          style="color:#03060D;">
+          <span class="relative z-10 flex items-center gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#03060D">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.106 1.516 5.836L.057 23.32a.75.75 0 00.922.922l5.484-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-5.035-1.397l-.36-.215-3.732.993.993-3.732-.215-.36A9.73 9.73 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
+            </svg>
+            Solicitar diagnóstico gratuito
+          </span>
+        </a>
+        <p class="text-xs mt-3" style="color:#283040;">El diagnóstico es completamente gratuito y sin compromiso</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ METODOLOGÍA AINOVA ══════════ -->
+  <section class="py-16 md:py-28 px-4 sm:px-6 border-t"
+    style="border-color:#283040;background:radial-gradient(ellipse 55% 70% at -5% 50%,rgba(242,242,242,.02),transparent);"
+    id="metodologia">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+
+      <div class="reveal">
+        <div class="pill mb-6">Metodología AInova</div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug mb-5" style="color:#F2F2F2;">
+          Arquitectos y Orquestadores de Tecnología
+        </h2>
+        <p class="text-base leading-relaxed mb-8" style="color:#88898C;">
+          No instalamos software genérico. Diseñamos una arquitectura inteligente que se adapta al flujo específico de
+          cada organización, integrando las herramientas correctas en el momento correcto para garantizar que cada
+          proceso opere con precisión quirúrgica.
+        </p>
+        <div class="space-y-6 mb-9">
+          <div class="flex gap-4 items-start">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
+              style="background:rgba(242,242,242,.08);">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm mb-0.5" style="color:#F2F2F2;">Diagnóstico profundo del flujo
+                organizacional</p>
+              <p class="text-xs leading-relaxed" style="color:#88898C;">Analizamos cada proceso existente antes de
+                proponer cualquier solución. La tecnología se adapta al negocio, no al revés.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
+              style="background:rgba(242,242,242,.08);">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm mb-0.5" style="color:#F2F2F2;">Integración nativa con su stack tecnológico
+                actual</p>
+              <p class="text-xs leading-relaxed" style="color:#88898C;">Compatible con n8n, Airtable, Supabase, WhatsApp
+                API, CRMs y ERPs propietarios. Sin migraciones forzadas ni disrupciones operativas.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
+              style="background:rgba(242,242,242,.08);">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm mb-0.5" style="color:#F2F2F2;">Soluciones escalables diseñadas para crecer
+                con usted</p>
+              <p class="text-xs leading-relaxed" style="color:#88898C;">Cada arquitectura se construye con capacidad de
+                expansión. Lo que hoy resuelve un proceso, mañana puede transformar toda la organización.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
+              style="background:rgba(242,242,242,.08);">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="#F2F2F2" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm mb-0.5" style="color:#F2F2F2;">Soporte continuo post-implementación</p>
+              <p class="text-xs leading-relaxed" style="color:#88898C;">Nuestro equipo monitorea, ajusta y optimiza cada
+                sistema en producción. No desaparecemos tras el despliegue.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard mockup -->
+      <div class="screen float-a reveal reveal-delay-2" style="box-shadow:0 0 60px rgba(242,242,242,.04);">
+        <div class="screen-bar">
+          <div class="dot bg-red-500"></div>
+          <div class="dot bg-yellow-500"></div>
+          <div class="dot bg-green-500"></div>
+          <span class="ml-2 text-xs" style="color:#88898C;">AInova Platform · Flujo Orquestado</span>
+        </div>
+        <div class="p-5 space-y-4">
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-xl p-3 text-center" style="background:#0d1018;border:1px solid #283040;">
+              <p class="text-xs mb-1" style="color:#88898C;">Leads procesados</p>
+              <p class="text-xl font-black g-text" data-count="1284" data-suffix="">1,284</p>
+              <p class="text-xs text-green-400 mt-0.5">↑ 34%</p>
+            </div>
+            <div class="rounded-xl p-3 text-center" style="background:#0d1018;border:1px solid #283040;">
+              <p class="text-xs mb-1" style="color:#88898C;">Horas ahorradas</p>
+              <p class="text-xl font-black g-text" data-count="920" data-suffix="h">920h</p>
+              <p class="text-xs text-green-400 mt-0.5">↑ 18%</p>
+            </div>
+            <div class="rounded-xl p-3 text-center" style="background:#0d1018;border:1px solid #283040;">
+              <p class="text-xs mb-1" style="color:#88898C;">Eficiencia</p>
+              <p class="text-xl font-black g-text" data-count="3.4" data-suffix="x" data-decimals="1">3.4x</p>
+              <p class="text-xs text-green-400 mt-0.5">↑ Meta</p>
+            </div>
+          </div>
+          <div class="rounded-xl p-4" style="background:#0d1018;border:1px solid #283040;">
+            <div class="flex justify-between items-center mb-3">
+              <p class="text-xs font-semibold" style="color:#88898C;">Flujos activos</p>
+              <span class="text-xs font-semibold" style="color:#F2F2F2;">• En vivo</span>
+            </div>
+            <div class="flex items-end gap-1.5 h-20">
+              <div class="flex-1 rounded-t" style="height:42%;background:linear-gradient(to top,#283040,#88898C);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:60%;background:linear-gradient(to top,#283040,#88898C);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:50%;background:linear-gradient(to top,#283040,#88898C);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:76%;background:linear-gradient(to top,#283040,#F2F2F2);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:64%;background:linear-gradient(to top,#283040,#88898C);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:93%;background:linear-gradient(to top,#88898C,#F2F2F2);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:80%;background:linear-gradient(to top,#283040,#F2F2F2);">
+              </div>
+              <div class="flex-1 rounded-t" style="height:88%;background:linear-gradient(to top,#88898C,#F2F2F2);">
+              </div>
+            </div>
+          </div>
+          <div class="rounded-xl p-3 flex gap-3 items-start"
+            style="background:#0d1018;border:1px solid rgba(242,242,242,.12);">
+            <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+              style="background:rgba(242,242,242,.08);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold" style="color:#F2F2F2;">Agente de ventas: 47 leads procesados</p>
+              <p class="text-xs mt-0.5" style="color:#88898C;">12 calificados como alta prioridad → equipo notificado
+              </p>
+            </div>
+          </div>
+          <div class="rounded-xl p-4" style="background:#0d1018;border:1px solid #283040;">
+            <p class="text-xs mb-3" style="color:#88898C;">Rendimiento por módulo</p>
+            <div class="space-y-2.5">
+              <div>
+                <div class="flex justify-between text-xs mb-1" style="color:#88898C;"><span>Atención al
+                    cliente</span><span style="color:#F2F2F2;" class="font-semibold">94%</span></div>
+                <div class="h-1.5 rounded-full" style="background:#283040;">
+                  <div class="prog h-1.5 rounded-full" style="width:94%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1" style="color:#88898C;"><span>Calificación de
+                    leads</span><span style="color:#F2F2F2;" class="font-semibold">87%</span></div>
+                <div class="h-1.5 rounded-full" style="background:#283040;">
+                  <div class="prog h-1.5 rounded-full" style="width:87%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1" style="color:#88898C;"><span>Reportes
+                    automáticos</span><span style="color:#F2F2F2;" class="font-semibold">100%</span></div>
+                <div class="h-1.5 rounded-full" style="background:#283040;">
+                  <div class="prog h-1.5 rounded-full" style="width:100%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="py-16 md:py-28 px-4 sm:px-6 border-t" style="border-color:#283040;" id="faq">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10 md:mb-14 reveal">
+        <div class="pill mx-auto mb-5">FAQ</div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style="color:#F2F2F2;">Preguntas frecuentes</h2>
+        <p class="text-sm max-w-md mx-auto" style="color:#88898C;">Respuestas directas a las inquietudes más comunes de
+          los líderes que evalúan transformar su organización.</p>
+      </div>
+
+      <div x-data="{ open: null }" class="divide-y rounded-2xl overflow-hidden reveal"
+        style="background:#111826;border:1px solid #283040;divide-color:#283040;">
+
+        <template x-for="(item, i) in [
+          { q: '¿Cuál es el plazo estimado para ver la IA operando en mi negocio?', a: 'En AInova priorizamos la agilidad sin sacrificar la precisión. El diagnóstico inicial toma 5 días hábiles. Dependiendo de la complejidad de la arquitectura, las implementaciones suelen estar en producción en un plazo de 2 a 4 semanas, con los primeros resultados medibles durante el primer mes.' },
+          { q: '¿Qué hace que AInova sea el aliado estratégico ideal para mi empresa?', a: 'No instalamos software; diseñamos arquitecturas inteligentes personalizadas. Nuestra propuesta es la de Arquitectos y Orquestadores de Tecnología: nos adaptamos al flujo específico de su organización, integramos las herramientas correctas y garantizamos resultados tangibles y escalables. Combinamos IA, automatización y marketing digital en una sola propuesta de valor.' },
+          { q: '¿Existen contratos de permanencia obligatoria?', a: 'Creemos en la retención basada en resultados, no en compromisos legales forzados. Nuestra filosofía es simple: si AInova genera valor tangible para su organización, usted elegirá continuar. Trabajamos con contratos mensuales renovables sin penalizaciones por cancelación anticipada.' },
+          { q: '¿AInova gestiona el proyecto de principio a fin?', a: 'Absolutamente. Ofrecemos una solución llave en mano: desde el diagnóstico estratégico inicial hasta el desarrollo, el despliegue en producción y el soporte continuo post-implementación. Usted solo necesita designar un punto de contacto interno; nosotros nos encargamos del resto.' },
+          { q: '¿Cuál es el primer paso para iniciar la transformación digital hoy?', a: 'Es tan sencillo como agendar una consultoría breve a través de WhatsApp. En 30 minutos analizamos su situación actual, identificamos las oportunidades de mayor impacto y trazamos la hoja de ruta para que AInova empiece a trabajar por usted. Sin costo. Sin compromiso.' }
+        ]" :key="i">
+          <div>
+            <button @click="open === i ? open = null : open = i"
+              class="w-full text-left px-4 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 hover:bg-white/[0.02] transition"
+              style="min-height:44px;">
+              <span class="font-semibold text-sm" style="color:#F2F2F2;" x-text="item.q"></span>
+              <svg :class="open === i ? 'rotate-180' : ''"
+                class="w-5 h-5 flex-shrink-0 transition-transform duration-200" style="color:#88898C;"
+                viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div x-show="open === i" x-collapse x-cloak>
+              <p class="px-4 sm:px-7 pb-5 sm:pb-6 text-sm leading-relaxed" style="color:#88898C;" x-text="item.a"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA FINAL ══════════ -->
+  <section class="py-12 md:py-20 px-4 sm:px-6" id="cta">
+    <div class="max-w-5xl mx-auto">
+      <div
+        class="cta-section rounded-2xl md:rounded-3xl p-8 sm:p-12 md:p-16 text-center relative overflow-hidden reveal">
+        <!-- Decorative glow -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div
+            style="width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(242,242,242,.04),transparent 65%);">
+          </div>
+        </div>
+        <!-- Scan line -->
+        <div class="scan-line"></div>
+        <!-- Floating orbs -->
+        <div class="float-a absolute"
+          style="top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(136,137,140,.05),transparent 65%);pointer-events:none;">
+        </div>
+        <div class="float-b absolute"
+          style="bottom:-30px;left:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(242,242,242,.03),transparent 65%);pointer-events:none;">
+        </div>
+
+        <div class="relative z-10">
+          <h2 class="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 md:mb-5 leading-tight" style="color:#F2F2F2;">
+            ¿Cuánto le cuesta a su empresa<br class="hidden md:block" />
+            <span class="g-text">no tener IA hoy?</span>
+          </h2>
+          <p class="mb-10 max-w-xl mx-auto leading-relaxed" style="color:#88898C;">
+            Cada mes sin inteligencia artificial es un mes en el que su competencia amplía la ventaja. Agende una
+            llamada directa con nuestro CEO y descubra el potencial exacto de IA en su organización.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-5 mb-4">
+            <a href="https://wa.me/584244129964" target="_blank" rel="noopener"
+              class="g-btn px-6 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg inline-flex items-center gap-3 sm:gap-4 cta-glow"
+              style="color:#03060D;">
+              <span class="relative z-10 flex items-center gap-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#03060D">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                  <path
+                    d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.106 1.516 5.836L.057 23.32a.75.75 0 00.922.922l5.484-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-5.035-1.397l-.36-.215-3.732.993.993-3.732-.215-.36A9.73 9.73 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
+                </svg>
+                Hablar directamente con el CEO
+              </span>
+            </a>
+            <a href="https://wa.me/584124169695" target="_blank" rel="noopener"
+              class="px-6 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg inline-flex items-center gap-3 sm:gap-4 transition"
+              style="color:#F2F2F2;border:1px solid rgba(242,242,242,.35);background:transparent;"
+              onmouseover="this.style.background='rgba(242,242,242,.07)';this.style.borderColor='rgba(242,242,242,.6)';"
+              onmouseout="this.style.background='transparent';this.style.borderColor='rgba(242,242,242,.35)';">
+              <span class="flex items-center gap-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#F2F2F2">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                  <path
+                    d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.106 1.516 5.836L.057 23.32a.75.75 0 00.922.922l5.484-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-5.035-1.397l-.36-.215-3.732.993.993-3.732-.215-.36A9.73 9.73 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
+                </svg>
+                Consultar con un asesor experto
+              </span>
+            </a>
+          </div>
+          <p class="text-sm" style="color:#283040;">Respuesta garantizada en menos de 2 horas · Sin costo · Sin
+            compromiso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="border-t py-12 md:py-16 px-4 sm:px-6" style="border-color:#283040;">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-10 mb-10 md:mb-12">
+
+        <div class="col-span-2 md:col-span-1">
+          <div class="mb-5">
+            <img src="img/ainova-logo.svg" alt="AInova" style="height:32px;width:auto;">
+          </div>
+          <p class="text-xs leading-relaxed mb-5" style="color:#88898C;">Arquitectos y Orquestadores de Tecnología.
+            Agencia de inteligencia artificial y marketing digital para empresas que buscan potenciar su industria.</p>
+          <div class="flex gap-2.5">
+            <a href="#" aria-label="Twitter"
+              class="w-11 h-11 rounded-lg border flex items-center justify-center transition"
+              style="border-color:#283040;" onmouseover="this.style.borderColor='#88898C';"
+              onmouseout="this.style.borderColor='#283040';">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+                  stroke="#88898C" stroke-width="1.5" />
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn"
+              class="w-11 h-11 rounded-lg border flex items-center justify-center transition"
+              style="border-color:#283040;" onmouseover="this.style.borderColor='#88898C';"
+              onmouseout="this.style.borderColor='#283040';">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+                  stroke="#88898C" stroke-width="1.5" />
+                <circle cx="4" cy="4" r="2" stroke="#88898C" stroke-width="1.5" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/ainova.ve.ai/" target="_blank" rel="noopener" aria-label="Instagram"
+              class="w-11 h-11 rounded-lg border flex items-center justify-center transition"
+              style="border-color:#283040;" onmouseover="this.style.borderColor='#88898C';"
+              onmouseout="this.style.borderColor='#283040';">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="#88898C" stroke-width="1.5" />
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="#88898C" stroke-width="1.5" />
+                <circle cx="17.5" cy="6.5" r=".5" fill="#88898C" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs uppercase tracking-widest font-semibold mb-4" style="color:#88898C;">Empresa</p>
+          <ul class="space-y-2.5 text-sm" style="color:#88898C;">
+            <li><a href="#" class="hover:text-white transition">Nosotros</a></li>
+            <li><a href="#" class="hover:text-white transition">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition">Carreras</a></li>
+            <li><a href="#" class="hover:text-white transition">Prensa</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest font-semibold mb-4" style="color:#88898C;">Servicios</p>
+          <ul class="space-y-2.5 text-sm" style="color:#88898C;">
+            <li><a href="#servicios" class="hover:text-white transition">Agentes IA</a></li>
+            <li><a href="#servicios" class="hover:text-white transition">Automatización</a></li>
+            <li><a href="#servicios" class="hover:text-white transition">Marketing Digital</a></li>
+            <li><a href="#metodologia" class="hover:text-white transition">Metodología</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest font-semibold mb-4" style="color:#88898C;">Recursos</p>
+          <ul class="space-y-2.5 text-sm" style="color:#88898C;">
+            <li><a href="#" class="hover:text-white transition">Casos de éxito</a></li>
+            <li><a href="#" class="hover:text-white transition">Guías de IA</a></li>
+            <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+            <li><a href="#" class="hover:text-white transition">Webinars</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest font-semibold mb-4" style="color:#88898C;">Legal</p>
+          <ul class="space-y-2.5 text-sm" style="color:#88898C;">
+            <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
+            <li><a href="#" class="hover:text-white transition">Términos</a></li>
+            <li><a href="#" class="hover:text-white transition">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t pt-6 md:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+        style="border-color:#283040;">
+        <p class="text-xs" style="color:#88898C;">© 2026 AInova. Todos los derechos reservados.</p>
+        <div class="flex items-center gap-2 pill">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+          Todos los sistemas operativos
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════ JAVASCRIPT ══════════ -->
+  <script>
+    // ── Particle canvas with neural network lines ──
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+
+      function resize() {
+        W = canvas.width = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = rand(0, W);
+          this.y = rand(0, H);
+          this.r = rand(0.6, 2.2);
+          this.vx = rand(-0.18, 0.18);
+          this.vy = rand(-0.28, -0.06);
+          this.alpha = rand(0.1, 0.35);
+          this.color = Math.random() > 0.5 ? '242,242,242' : '136,137,140';
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          this.alpha -= 0.0007;
+          if (this.y < -5 || this.alpha <= 0) this.reset();
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+      function loop() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Draw neural connection lines
+        for (let ai = 0; ai < particles.length; ai++) {
+          const a = particles[ai];
+          for (let bi = ai + 1; bi < particles.length; bi++) {
+            const b = particles[bi];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 90) {
+              const lineAlpha = (1 - dist / 90) * 0.055 * Math.min(a.alpha, b.alpha) * 4;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(242,242,242,${lineAlpha})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+
+    // ── Scroll reveal ──
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    })();
+
+    // ── Stagger card animation ──
+    (function () {
+      const items = document.querySelectorAll('.stagger-item');
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('anim-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      items.forEach(el => io.observe(el));
+    })();
+
+    // ── Counter animation ──
+    (function () {
+      function animateCounter(el) {
+        const target = parseFloat(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const decimals = parseInt(el.dataset.decimals || '0');
+        const duration = 1800;
+        let startTime = null;
+
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          const progress = Math.min((ts - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = eased * target;
+          el.textContent = (decimals > 0
+            ? value.toFixed(decimals)
+            : (value >= 1000 ? Math.floor(value).toLocaleString() : Math.floor(value))
+          ) + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = (decimals > 0 ? target.toFixed(decimals) : (target >= 1000 ? target.toLocaleString() : target)) + suffix;
+            el.style.animation = 'num-pop 0.5s cubic-bezier(0.2,0,0.2,1)';
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      const counters = document.querySelectorAll('[data-count]');
+      if (!counters.length) return;
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCounter(e.target);
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.6 });
+
+      counters.forEach(el => io.observe(el));
+    })();
+  </script>
+
+</body>
+
+</html>
